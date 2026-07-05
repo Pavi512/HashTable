@@ -48,6 +48,30 @@ class MyHashTable {
         curr.next = new MyMapNode(key, 1);
     }
 
+    //Remove method to remove a word from the hashtable.=
+    public void remove(String key) {
+        int index = getIndex(key);
+        MyMapNode curr = table[index];
+        MyMapNode prev = null;
+        while (curr != null) {
+            if (curr.key.equals(key)) {
+
+                //If the word is the first node in the bucket.
+                if (prev == null) {
+                    table[index] = curr.next;
+                }
+
+                //Otherwise remove the node from the linked list.
+                else {
+                    prev.next = curr.next;
+                }
+                return;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+    }
+
     //Method to print the hashtable
     public void print() {
         for (int i = 0; i < SIZE; i++) {
@@ -79,6 +103,13 @@ public class HashTable {
         for (String word : words) {
             table.add(word);
         }
+
+        System.out.println("Before Removing:\n");
+        table.print();
+
+        table.remove("avoidable");
+
+        System.out.println("After Removing 'avoidable':\n");
         table.print();
     }
 }
